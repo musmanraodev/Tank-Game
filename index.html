@@ -1,0 +1,195 @@
+<style>
+    .players {
+        height: 200px;
+        width: 200px;
+        border-radius: 10px;
+        background: gray;
+        position: relative;
+        margin-top: 55px;
+    }
+    
+    .box {
+        height: 600px;
+        width: 1000px;
+        line-height: 194px;
+        background: blue;
+        position: absolute;
+    }
+</style>
+<button>Start</button>
+<div id="box" class="box">
+    <div class='players' id="player1">d</div>
+    <div class='players' id="player2">z button</div>
+</div>
+<script>
+    const keys = {
+
+        playeronekeys: {
+            fire: {
+                isPressed: false,
+                keyCode: 221,
+            },
+            right: {
+                isPressed: false,
+                keyCode: 39,
+                vertical: false,
+                direction: 1
+            },
+            up: {
+                isPressed: false,
+                keyCode: 38,
+                vertical: true,
+                direction: -1
+            },
+            down: {
+                isPressed: false,
+                keyCode: 40,
+                vertical: true,
+                direction: 1
+            },
+            left: {
+                isPressed: false,
+                keyCode: 37,
+                vertical: false,
+                direction: -1
+            }
+        },
+        playertwokeys: {
+            fire: {
+                isPressed: false,
+                keyCode: 17,
+            },
+            d: {
+                isPressed: false,
+                keyCode: 68,
+            },
+            w: {
+                isPressed: false,
+                keyCode: 87,
+            },
+            s: {
+                isPressed: false,
+                keyCode: 83,
+            },
+            a: {
+                isPressed: false,
+                keyCode: 65,
+            }
+        }
+
+    }
+
+    class tankmaker {
+  constructor(name) {
+    this.name = name
+    this.height = 200;
+    this.width = 200;
+  }
+
+}
+
+let p1tank = new tankmaker('p1tank');
+let p2tank = new tankmaker('p2tank');
+
+
+    let player1 = document.getElementById('player1')
+    let player2 = document.getElementById('player2')
+
+    let xforz = 0;
+    let xposp1 = 0;
+    let yposp1 = 0;
+    let xposp2 = 0;
+    let yposp2 = 0;
+
+    var won = false;
+
+    var cl = console.log;
+
+    let speed = 1;
+
+    // if (!won) {
+
+    setInterval(function () {
+        document.onkeydown = function (event) {
+            for (var key in keys.playeronekeys) {
+                if (keys.playeronekeys[key].keyCode == event.keyCode) {
+                    keys.playeronekeys[key].isPressed = true;
+                }
+            }
+            for (var key in keys.playertwokeys) {
+                if (keys.playertwokeys[key].keyCode == event.keyCode) {
+                    keys.playertwokeys[key].isPressed = true;
+                }
+            }
+        }
+
+        // if (!won) {
+        for (var key in keys.playeronekeys) {
+
+            if (keys.playeronekeys.right.isPressed) {
+                // if ((xposp2 != xposp1) && (yposp2 != xposp1)) {
+                xposp1 += speed;
+                player1.style.left = xposp1 + "px";
+                // console.log(xposp1);
+                console.log('okay working');
+
+                // }
+            }
+            if (keys.playeronekeys.left.isPressed) {
+                xposp1 -= speed;
+                player1.style.left = xposp1 + "px";
+                // console.log(xposp1);
+            }
+            if (keys.playeronekeys.up.isPressed) {
+                yposp1 -= speed;
+                player1.style.top = yposp1 + "px";
+                // console.log(yposp1);
+            }
+            if (keys.playeronekeys.down.isPressed) {
+                yposp1 += speed;
+                player1.style.top = yposp1 + "px";
+                // console.log(yposp1);
+            }
+        }
+
+        for (var key in keys.playertwokeys) {
+
+            if (keys.playertwokeys.d.isPressed) {
+                xposp2 += speed;
+                player2.style.left = xposp2 + "px";
+                // console.log(xposp2);
+            }
+            if (keys.playertwokeys.a.isPressed) {
+                xposp2 -= speed;
+                player2.style.left = xposp2 + "px";
+                // console.log(xposp2);
+            }
+            if (keys.playertwokeys.w.isPressed) {
+                yposp2 -= speed;
+                player2.style.top = yposp2 + "px";
+                // console.log(yposp2);
+            }
+            if (keys.playertwokeys.s.isPressed) {
+                yposp2 += speed;
+                player2.style.top = yposp2 + "px";
+                // console.log(yposp2);
+            }
+        }
+        // }
+
+        document.onkeyup = function (event) {
+            for (var key in keys.playeronekeys) {
+                if (keys.playeronekeys[key].keyCode == event.keyCode) {
+                    keys.playeronekeys[key].isPressed = false;
+                }
+            }
+            for (var key in keys.playertwokeys) {
+                if (keys.playertwokeys[key].keyCode == event.keyCode) {
+                    keys.playertwokeys[key].isPressed = false;
+                }
+            }
+        };
+    }, 20);
+    // }
+
+</script>
