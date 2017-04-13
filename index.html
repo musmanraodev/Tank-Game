@@ -15,7 +15,58 @@
         background: blue;
         position: absolute;
     }
+    
+    .missile {
+        height: 100px;
+        width: 200px;
+        background: black;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+    
+    .right-fire {
+        animation: right-fire 1s forwards;
+    }
+    
+    @keyframes right-fire {
+        to {
+            left: 100%;
+        }
+    }
+    
+    .left-fire {
+        animation: left-fire 1s forwards;
+    }
+    
+    @keyframes left-fire {
+        to {
+            left: 0%;
+        }
+    }
+    
+    .up-fire {
+        animation: up-fire 1s forwards;
+    }
+    
+    @keyframes up-fire {
+        to {
+            top: 0%;
+        }
+    }
+    
+    .down-fire {
+        animation: down-fire 1s forwards;
+    }
+    
+    @keyframes down-fire {
+        to {
+            top: 100%;
+        }
+    }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <button>Start</button>
 <div id="box" class="box">
     <div class='players' id="player1">d</div>
@@ -27,37 +78,29 @@
         playeronekeys: {
             fire: {
                 isPressed: false,
-                keyCode: 221,
+                keyCode: 190, // it is '.' dot
             },
             right: {
                 isPressed: false,
                 keyCode: 39,
-                vertical: false,
-                direction: 1
             },
             up: {
                 isPressed: false,
                 keyCode: 38,
-                vertical: true,
-                direction: -1
             },
             down: {
                 isPressed: false,
                 keyCode: 40,
-                vertical: true,
-                direction: 1
             },
             left: {
                 isPressed: false,
                 keyCode: 37,
-                vertical: false,
-                direction: -1
             }
         },
         playertwokeys: {
             fire: {
                 isPressed: false,
-                keyCode: 17,
+                keyCode: 17, // this is control
             },
             d: {
                 isPressed: false,
@@ -79,17 +122,17 @@
 
     }
 
-    class tankmaker {
-  constructor(name) {
-    this.name = name
-    this.height = 200;
-    this.width = 200;
-  }
+    //     class tankmaker {
+    //   constructor(name) {
+    //     this.name = name
+    //     this.height = 200;
+    //     this.width = 200;
+    //   }
 
-}
+    // }
 
-let p1tank = new tankmaker('p1tank');
-let p2tank = new tankmaker('p2tank');
+    // let p1tank = new tankmaker('p1tank');
+    // let p2tank = new tankmaker('p2tank');
 
 
     let player1 = document.getElementById('player1')
@@ -108,14 +151,24 @@ let p2tank = new tankmaker('p2tank');
     let speed = 1;
 
     // if (!won) {
+    document.onkeydown = function (event) {
 
+    }
     setInterval(function () {
         document.onkeydown = function (event) {
             for (var key in keys.playeronekeys) {
                 if (keys.playeronekeys[key].keyCode == event.keyCode) {
                     keys.playeronekeys[key].isPressed = true;
                 }
+
             }
+            if (event.keyCode == 190) {
+
+
+                p1fire();
+
+            }
+
             for (var key in keys.playertwokeys) {
                 if (keys.playertwokeys[key].keyCode == event.keyCode) {
                     keys.playertwokeys[key].isPressed = true;
@@ -131,7 +184,8 @@ let p2tank = new tankmaker('p2tank');
                 xposp1 += speed;
                 player1.style.left = xposp1 + "px";
                 // console.log(xposp1);
-                console.log('okay working');
+
+                // console.log('okay going on right');
 
                 // }
             }
@@ -139,17 +193,24 @@ let p2tank = new tankmaker('p2tank');
                 xposp1 -= speed;
                 player1.style.left = xposp1 + "px";
                 // console.log(xposp1);
+                // console.log('okay going on l`eft');
             }
             if (keys.playeronekeys.up.isPressed) {
                 yposp1 -= speed;
                 player1.style.top = yposp1 + "px";
                 // console.log(yposp1);
+                // console.log('okay going on up');
             }
             if (keys.playeronekeys.down.isPressed) {
                 yposp1 += speed;
                 player1.style.top = yposp1 + "px";
                 // console.log(yposp1);
+                // console.log('okay going on down');
             }
+            //    if (keys.playeronekeys.fire.isPressed) {
+            //     p1fire();
+            // }
+
         }
 
         for (var key in keys.playertwokeys) {
@@ -190,6 +251,31 @@ let p2tank = new tankmaker('p2tank');
             }
         };
     }, 20);
-    // }
+
+
+    function p1fire() {
+        let player1 = $("#player1");
+        var player1offset = player1.offset();
+        // console.log(offset.left);
+
+        // console.log('');
+
+        // console.log('the fire is on');
+
+        let fire = document.createElement('div');
+        fire.className = 'missile right-fire p1missile';
+        fire.id = 'p1missile';
+        $('body').append(fire);
+        $(".p1missile").offset({ top: player1offset.top, left: player1offset.left });
+         fire.className = 'missile right-fire';
+        console.log('this is firign right now');
+
+
+        // for (var i = 0; i < 100; i++) {
+        // let a = i * 0.1;
+        // fire.style.left = a + "px";
+        // }
+
+    }
 
 </script>
