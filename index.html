@@ -26,12 +26,12 @@
 }
 
 .right-fire {
-    animation: right-fire 1s forwards;
+    animation: right-fire 5s forwards;
 }
 
 @keyframes right-fire {
     to {
-        left: 100%;
+        left: 350px;
     }
 }
 
@@ -64,12 +64,18 @@
         top: 100%;
     }
 }
+
+.haha {
+    left: 342px;
+}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 <button>Start</button>
 <div id="box" class="box">
     <div class='players' id="player1">d</div>
-    <div class='players' id="player2">z button</div>
+    <div class='players haha' id="player2">z button</div>
 </div>
 <script>
 const keys = {
@@ -149,15 +155,20 @@ var cl = console.log;
 
 let speed = 1;
 
+let p1missileinair = false;
 // if (!won) {
 document.onkeydown = function(event) {
 
 }
+
 setInterval(function() {
+    // checkhit();
     document.onkeydown = function(event) {
+        
         for (var key in keys.playeronekeys) {
             if (keys.playeronekeys[key].keyCode == event.keyCode) {
                 keys.playeronekeys[key].isPressed = true;
+                
             }
 
         }
@@ -206,11 +217,12 @@ setInterval(function() {
             // console.log(yposp1);
             // console.log('okay going on down');
         }
-        // if (keys.playeronekeys.fire.isPressed) {
-        //     p1fire();
-        // }
+        
+      
 
     }
+
+  
 
     for (var key in keys.playertwokeys) {
 
@@ -249,6 +261,30 @@ setInterval(function() {
             }
         }
     };
+
+
+      function checkhit() {
+        //   console.log('ok the check hit is on');
+          
+          if (p1missileinair) {
+              
+          
+           let player2offset = $("#player2").offset();
+              let p1missileoffset =  $("#p1missile").offset();
+              
+        if (p1missileoffset.left == player2offset.left)  {
+    console.log('got hit');
+             
+
+  
+    
+        }
+    }
+    }
+
+    setInterval(function() {
+   checkhit();
+   }, 00001);
 }, 20);
 
 let p1fireallow = true;
@@ -256,8 +292,7 @@ let p1fireallow = true;
 function p1fire() {
 
     if (p1fireallow == true) {
-        let player1 = $("#player1");
-        var player1offset = player1.offset();
+        let player1offset = $("#player1").offset();
         // console.log(offset.left);
 
         // console.log('');
@@ -280,6 +315,7 @@ function p1fire() {
         // let a = i * 0.1;
         // fire.style.left = a + "px";
         // }
+        p1missileinair = true;
         p1fireallow = false;
         // console.log(p1fireallow);
         console.log($('#player2').outerWidth(true));
